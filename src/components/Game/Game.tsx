@@ -41,6 +41,11 @@ const shuffle = (deck: Deck) => {
   return shuffled;
 };
 
+const draw = (deck: Deck, show: boolean = true): ICard => {
+  const card = deck.shift() as ICard;
+  return { ...card, show };
+}
+
 const Game: React.FC = () => {
   const [deck, setDeck] = useState<Deck>(fullDeck);
   const [cutPosition, setCutPosition] = useState<number>(fullDeck.length);
@@ -65,20 +70,20 @@ const Game: React.FC = () => {
     const player: ICard[] = [];
     const dealer: ICard[] = [];
 
-    const draw = (show: boolean = true): ICard => {
-      const card = deck.shift() as ICard;
-      return { ...card, show };
-    }
-
-    player.push(draw());
-    dealer.push(draw(false));
-    player.push(draw());
-    dealer.push(draw());
+    player.push(draw(deck));
+    dealer.push(draw(deck, false));
+    player.push(draw(deck));
+    dealer.push(draw(deck));
 
     setDeck([...deck]);
     setDealerHand({cards: dealer, value: 0});
     setPlayerHands([{cards: player, value: 0}]);
   }, [deck]);
+
+  const handleHit = useCallback(() => {
+    const nextCard = draw(deck);
+    setPlayerHands(prev => prev.splice(activeHand, 1, { cards: [...prev[activeHand].cards, nextCard], value: 0}));
+  }, [deck, activeHand]);
   
   return (
     <section>
@@ -92,6 +97,7 @@ const Game: React.FC = () => {
       </div>
       <div>
         <button onClick={dealHands}>Deal</button>
+        <button onClick={handleHit}>Hit</button>
       </div>
     </section>
   )
