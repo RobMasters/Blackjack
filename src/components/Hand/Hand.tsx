@@ -9,6 +9,7 @@ export interface IHand {
   cards: ICard[];
   value: number;
 }
+
 export const EMPTY_HAND: IHand = { cards: [], value: 0 };
 
 interface IHandProps {
@@ -17,18 +18,21 @@ interface IHandProps {
 }
 
 const randomRotation = () => getRandomNumberWithinRange(-30, 30) / 10;
-const Hand: React.VFC<IHandProps> = ({ hand: { cards, value }, isDealer}) => {
-
+const Hand: React.VFC<IHandProps> = ({ hand: { cards, value }, isDealer }) => {
   return (
     <div>
       <h1>{isDealer ? 'Dealer' : 'Player'}</h1>
       <SC.Cards>
         {cards.map((card, index) => (
-          <Card {...card} key={`${isDealer ? 'd' : 'p'}-${index}`} skew={index > 0 ? randomRotation() : 0} />
+          <Card
+            {...card}
+            key={`${isDealer ? 'd' : 'p'}-${index}`}
+            skew={index > 0 ? randomRotation() : 0}
+          />
         ))}
       </SC.Cards>
     </div>
-  )
+  );
 };
 
 export default Hand;

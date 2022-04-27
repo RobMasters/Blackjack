@@ -10,9 +10,11 @@ const icons: Record<Suit, string> = {
   clubs: '♣️',
 };
 
-export interface ICardProps extends ICard { skew?: number };
+export interface ICardProps extends ICard {
+  skew?: number;
+}
 
-const Card: React.FC<ICardProps> = ({ suit, rank, show, skew}) => {
+const Card: React.FC<ICardProps> = ({ suit, rank, show, skew }) => {
   if (!show) {
     return <SC.FaceDownCard />;
   }
@@ -23,7 +25,7 @@ const Card: React.FC<ICardProps> = ({ suit, rank, show, skew}) => {
       <SC.CornerSuit>{icons[suit]}</SC.CornerSuit>
       <SC.MiddleSuit>{icons[suit]}</SC.MiddleSuit>
     </SC.CardWrapper>
-  )
-}
+  );
+};
 
 export default Card;

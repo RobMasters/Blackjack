@@ -6,12 +6,14 @@ import Hand, { IHand, EMPTY_HAND } from '../Hand';
 const suits = ['hearts', 'diamonds', 'spades', 'clubs'] as const;
 const ranks = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'] as const;
 
-type InferValues<T extends ReadonlyArray<unknown>> = T extends ReadonlyArray<infer ElementValue>
+type InferValues<T extends ReadonlyArray<unknown>> = T extends ReadonlyArray<
+  infer ElementValue
+>
   ? ElementValue
-  : never
+  : never;
 
-export type Suit = InferValues<typeof suits>
-export type Rank = InferValues<typeof ranks>
+export type Suit = InferValues<typeof suits>;
+export type Rank = InferValues<typeof ranks>;
 
 export interface ICard {
   rank: Rank;
@@ -26,7 +28,7 @@ suits.forEach(suit => {
   ranks.forEach(rank => {
     fullDeck.push({ rank, suit, show: false } as ICard);
     fullDeck.push({ rank, suit, show: false } as ICard);
-  })
+  });
 });
 
 // Note: this algorithm was "borrowed" from here and modified slightly
@@ -44,7 +46,7 @@ const shuffle = (deck: Deck) => {
 const draw = (deck: Deck, show: boolean = true): ICard => {
   const card = deck.shift() as ICard;
   return { ...card, show };
-}
+};
 
 const Game: React.FC = () => {
   const [deck, setDeck] = useState<Deck>(fullDeck);
@@ -62,7 +64,6 @@ const Game: React.FC = () => {
       // shuffle a full deck of cards (two full packs of 52)
       // and then "buyrn" the first card, to mimic casino play
       setDeck(shuffle(fullDeck).slice(1));
-
     }
   }, [cutPosition, deck]);
 
@@ -76,15 +77,20 @@ const Game: React.FC = () => {
     dealer.push(draw(deck));
 
     setDeck([...deck]);
-    setDealerHand({cards: dealer, value: 0});
-    setPlayerHands([{cards: player, value: 0}]);
+    setDealerHand({ cards: dealer, value: 0 });
+    setPlayerHands([{ cards: player, value: 0 }]);
   }, [deck]);
 
   const handleHit = useCallback(() => {
     const nextCard = draw(deck);
-    setPlayerHands(prev => prev.splice(activeHand, 1, { cards: [...prev[activeHand].cards, nextCard], value: 0}));
+    setPlayerHands(prev =>
+      prev.splice(activeHand, 1, {
+        cards: [...prev[activeHand].cards, nextCard],
+        value: 0,
+      }),
+    );
   }, [deck, activeHand]);
-  
+
   return (
     <section>
       <header>
@@ -100,7 +106,7 @@ const Game: React.FC = () => {
         <button onClick={handleHit}>Hit</button>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default Game;
