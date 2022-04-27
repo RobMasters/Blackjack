@@ -1,6 +1,8 @@
 import React from 'react';
 import { Game } from './components/Game';
 
+import 'antd/dist/antd.css';
+
 function App() {
   return (
     <div className="App">

@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { Button, Layout, Space } from 'antd';
 import { getRandomNumberWithinRange } from '../../utils';
-import Card from '../Card/Card';
 import Hand, { IHand, EMPTY_HAND } from '../Hand';
+
+import * as SC from './Game.style';
 
 const suits = ['hearts', 'diamonds', 'spades', 'clubs'] as const;
 const ranks = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'] as const;
@@ -19,6 +21,7 @@ export interface ICard {
   rank: Rank;
   suit: Suit;
   show?: boolean;
+  skew?: number;
 }
 
 type Deck = ICard[];
@@ -43,16 +46,19 @@ const shuffle = (deck: Deck) => {
   return shuffled;
 };
 
+const randomRotation = () => getRandomNumberWithinRange(-25, 25) / 10;
+
 const draw = (deck: Deck, show: boolean = true): ICard => {
   const card = deck.shift() as ICard;
-  return { ...card, show };
+  return { ...card, show, skew: randomRotation() };
 };
 
 const Game: React.FC = () => {
   const [deck, setDeck] = useState<Deck>(fullDeck);
   const [cutPosition, setCutPosition] = useState<number>(fullDeck.length);
 
-  const [dealerHand, setDealerHand] = useState<IHand>(EMPTY_HAND);
+  const [dealerHand, setDealerHand] =
+    useState<Omit<IHand, 'betAmount'>>(EMPTY_HAND);
   const [playerHands, setPlayerHands] = useState<IHand[]>([EMPTY_HAND]);
   const [activeHand, setActiveHand] = useState<number>(0);
 
@@ -92,20 +98,28 @@ const Game: React.FC = () => {
   }, [deck, activeHand]);
 
   return (
-    <section>
-      <header>
+    <Layout>
+      <Layout.Header>
         <p>Deck: {deck.length}</p>
-      </header>
-      <div>
-        <Hand isDealer hand={dealerHand} />
+      </Layout.Header>
+      <SC.Content>
+        <SC.GameTable>
+          <Space direction="vertical" size="middle">
+            <Hand isDealer hand={dealerHand} />
+            <Hand isDealer={false} hand={playerHands[0]} />
+          </Space>
+        </SC.GameTable>
 
-        <Hand isDealer={false} hand={playerHands[0]} />
-      </div>
-      <div>
-        <button onClick={dealHands}>Deal</button>
-        <button onClick={handleHit}>Hit</button>
-      </div>
-    </section>
+        <Space align="center">
+          <Button type="primary" onClick={dealHands} size="large">
+            Deal
+          </Button>
+          <Button type="primary" onClick={handleHit} size="large">
+            Hit
+          </Button>
+        </Space>
+      </SC.Content>
+    </Layout>
   );
 };
 

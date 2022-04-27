@@ -1,5 +1,4 @@
 import React from 'react';
-import { getRandomNumberWithinRange } from '../../utils';
 import Card from '../Card/Card';
 import { ICard } from '../Game/Game';
 
@@ -8,6 +7,7 @@ import * as SC from './Hand.style';
 export interface IHand {
   cards: ICard[];
   value: number;
+  betAmount?: number;
 }
 
 export const EMPTY_HAND: IHand = { cards: [], value: 0 };
@@ -17,21 +17,16 @@ interface IHandProps {
   isDealer: boolean;
 }
 
-const randomRotation = () => getRandomNumberWithinRange(-30, 30) / 10;
-const Hand: React.VFC<IHandProps> = ({ hand: { cards, value }, isDealer }) => {
+const Hand: React.FC<IHandProps> = ({ hand: { cards, value }, isDealer }) => {
   return (
-    <div>
+    <SC.Hand>
       <h1>{isDealer ? 'Dealer' : 'Player'}</h1>
       <SC.Cards>
         {cards.map((card, index) => (
-          <Card
-            {...card}
-            key={`${isDealer ? 'd' : 'p'}-${index}`}
-            skew={index > 0 ? randomRotation() : 0}
-          />
+          <Card {...card} key={`${isDealer ? 'd' : 'p'}-${index}`} />
         ))}
       </SC.Cards>
-    </div>
+    </SC.Hand>
   );
 };
 

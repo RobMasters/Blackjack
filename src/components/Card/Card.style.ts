@@ -1,35 +1,8 @@
 import styled, { css } from 'styled-components';
+import { Card } from 'antd';
 import { ICardProps } from './Card';
 
-const wrapperStyles = css`
-  width: 100px;
-  height: 150px;
-  background: white;
-  border-radius: 5px;
-  box-sizing: border-box;
-  box-shadow: inset 2px 2px #212b37;
-`;
-
-export const CardWrapper = styled.div<Pick<ICardProps, 'suit' | 'skew'>>`
-  ${wrapperStyles};
-  padding: 5px;
-  color: ${({ suit }) =>
-    suit === 'hearts' || suit === 'diamonds' ? 'red' : 'black'};
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  ${({ skew }) =>
-    skew &&
-    css`
-      transform: rotate(${skew}deg);
-    `}
-`;
-
-export const FaceDownCard = styled.div`
-  ${wrapperStyles};
-
-  border: 5px solid rgba(255, 255, 255, 0.8);
-
+const cardBackground = css`
   background-color: #e5e5f7;
   opacity: 0.8;
   background-image: linear-gradient(
@@ -82,17 +55,63 @@ export const FaceDownCard = styled.div`
     );
   background-size: 20px 35px;
   background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
+  border: 4px solid rgba(255, 255, 255, 0.7);
+`;
+
+const wrapperStyles = css`
+  width: 80px;
+  flex: 0 1 80px;
+  aspect-ratio: 2/3;
+  border-color: #c9c9c9;
+
+  @media (min-width: 1200px) {
+    width: 100px;
+    flex: 0 1 100px;
+  }
+
+  @media (min-width: 1400px) {
+    width: 120px;
+    flex: 0 1 120px;
+  }
+`;
+
+export const CardWrapper = styled(Card)<Pick<ICardProps, 'suit' | 'skew'>>`
+  ${wrapperStyles};
+  //padding: 5px;
+  color: ${({ suit }) =>
+    suit === 'hearts' || suit === 'diamonds' ? 'red' : 'black'};
+
+  .ant-card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+  }
+  position: relative;
+  ${({ skew }) =>
+    skew &&
+    css`
+      transform: rotate(${skew}deg);
+    `}
+`;
+
+export const FaceDownCard = styled.div`
+  ${wrapperStyles};
+  border-radius: 2px;
+  ${cardBackground}
 `;
 
 export const CornerRank = styled.span`
   flex: 0;
   font-weight: bold;
   font-size: 1.5rem;
+  line-height: 1.5rem;
 `;
 
 export const CornerSuit = styled.span`
   flex: 0;
   font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
 `;
 
 export const MiddleSuit = styled.span`
