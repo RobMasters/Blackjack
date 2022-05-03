@@ -1,5 +1,5 @@
 import React from 'react';
-import { ICard, Suit } from '../Game/Game';
+import { ICard, Suit } from '../../Game';
 
 import * as SC from './Card.style';
 
