@@ -1,6 +1,32 @@
-# Getting Started with Create React App
+# Blackjack
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## What has been implemented
+
+* Core actions:
+  * Hit
+  * Stand
+  * Double-down
+  * Split (up to 4 hands)
+* Dealer logic
+  * Hits until 17
+  * Hits on soft aces
+* Ability to place bets
+  * Blackjack pays 2-to-1 odds
+* Deck management
+  * Shuffles two full decks
+  * Sets a randomised cut position to determine when to re-shuffle
+* Testing of critical utility functions:
+  * calculateHand - calculates value of hand and assigns other properties such as `isBlackjack` or `isSoft`
+  * evaluateHands - given two hands, returns whether each wins, loses or pushes
+  * shouldDealerHit - as the name would imply, this returns a boolean to determine if the dealer should hit
+
+## What has not yet been implemented
+
+* Component testing 😔
+* Blackjack insurance
+* Animations
 
 ## Available Scripts
 
