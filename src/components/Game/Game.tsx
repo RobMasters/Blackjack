@@ -10,7 +10,10 @@ const Game: React.FC = () => {
   return (
     <GameProvider>
       <Layout>
-        <Layout.Header>BlackJack by Rob Masters</Layout.Header>
+        <Layout.Header>
+          <SC.Title>🃏 Blackjack</SC.Title>
+          <SC.Subtitle>by Rob Masters</SC.Subtitle>
+        </Layout.Header>
         <SC.Content>
           <BlackjackTable />
           <PlayerActions />

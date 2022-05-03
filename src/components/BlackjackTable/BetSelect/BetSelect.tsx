@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import { InputNumber, Button } from 'antd';
+import { Button, Slider } from 'antd';
 import { useGameContext } from '../../Game';
+
+import * as SC from './BetSelect.style';
 
 const BetSelect: React.FC = () => {
   const { balance, betAmount, placeBet } = useGameContext();
@@ -14,11 +16,30 @@ const BetSelect: React.FC = () => {
     setNextBet(amount);
   }, []);
 
+  let step = 10;
+  if (balance >= 500) {
+    step = 25;
+  }
+  if (balance >= 1000) {
+    step = 50;
+  }
+  if (balance >= 5000) {
+    step = 100;
+  }
+
   return (
-    <div>
-      <InputNumber value={nextBet} onChange={handleBetAmount} />
-      <Button onClick={handleBet}>Place bet</Button>
-    </div>
+    <SC.Wrapper>
+      <Slider
+        defaultValue={betAmount}
+        min={step}
+        max={balance}
+        step={step}
+        onChange={handleBetAmount}
+      />
+      <Button onClick={handleBet} type="primary" size="large">
+        {nextBet === balance ? 'All in! 🤞🏻' : `Bet $${nextBet}`}
+      </Button>
+    </SC.Wrapper>
   );
 };
 
