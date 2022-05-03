@@ -75,8 +75,6 @@ const blackjackReducer = (
     return hands;
   };
 
-  console.log('BADGER -- blackjackReducer -- action', action);
-
   const { type, payload } = action;
   switch (type) {
     case 'setGameState':
@@ -100,6 +98,7 @@ const blackjackReducer = (
     case 'bet': {
       return {
         ...state,
+        playerHands: updateHand(hand => ({ ...hand, betAmount: payload })),
         gameState: 'deal',
         balance: state.balance - payload,
         betAmount: payload,
@@ -115,19 +114,11 @@ const blackjackReducer = (
       // Determine who we're dealing to
       const nextCard = state.deck.pop() as ICard;
       if (playerHand.cards.length === dealerHand.cards.length) {
-        console.log(
-          'BADGER -- blackjackReducer -- DEALING CARD TO PLAYER',
-          nextCard,
-        );
         playerHand.cards.push({
           ...nextCard,
           show: true,
         });
       } else {
-        console.log(
-          'BADGER -- blackjackReducer -- DEALING CARD TO DEALER',
-          nextCard,
-        );
         dealerHand.cards.push({
           ...nextCard,
           show: dealerHand.cards.length > 0,

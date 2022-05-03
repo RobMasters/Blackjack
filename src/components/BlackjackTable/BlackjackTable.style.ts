@@ -16,6 +16,19 @@ export const GameTable = styled.div`
   }
 `;
 
+export const Headings = styled.header`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 -60%;
+  color: #fff;
+  font-size: 1.2rem;
+
+  color: #b6c2ba;
+  text-transform: uppercase;
+  font-family: 'Lucida Grande';
+`;
+
 export const HandWrapper = styled(Space)`
   width: 100%;
 `;

@@ -6,6 +6,14 @@ export const PlayerHands = styled.div`
   position: relative;
   justify-content: center;
   min-height: 120px;
+
+  @media (min-width: 1200px) {
+    min-height: 150px;
+  }
+
+  @media (min-width: 1400px) {
+    min-height: 180px;
+  }
 `;
 
 export const PlayerHeading = styled.span`

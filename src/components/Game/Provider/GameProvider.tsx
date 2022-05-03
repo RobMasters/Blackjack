@@ -9,8 +9,6 @@ const GameProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
 
   const playerHand: IHand = playerHands[activeHand];
 
-  console.log('BADGER -- GameProvider -- state', state);
-
   const shuffle = () => dispatch({ type: 'shuffle' });
   const dealCard = () => dispatch({ type: 'dealCard' });
   const hit = () => dispatch({ type: 'hit' });

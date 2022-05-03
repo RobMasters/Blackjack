@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Space } from 'antd';
 import { useGameContext } from '../Game';
 
+import * as SC from './PlayerActions.style';
+
 const MAXIMUM_PLAYER_HANDS = 4;
 
 const PlayerActions: React.FC = () => {
@@ -28,7 +30,7 @@ const PlayerActions: React.FC = () => {
     playerHands.length < MAXIMUM_PLAYER_HANDS;
 
   return (
-    <Space>
+    <SC.ActionsWrapper>
       <Button type="primary" onClick={hit} size="large">
         Hit
       </Button>
@@ -45,7 +47,7 @@ const PlayerActions: React.FC = () => {
           Split
         </Button>
       )}
-    </Space>
+    </SC.ActionsWrapper>
   );
 };
 

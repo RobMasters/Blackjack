@@ -2,11 +2,16 @@ import { useEffect } from 'react';
 import { useGameContext } from '../Game';
 import shouldDealerHit from '../Game/utils/shouldDealerHit';
 
-const DELAY_DRAW_CARD = 500;
+const DELAY_DRAW_CARD = 300;
 const DELAY_EVALUATE_HAND = 750;
 const DELAY_CHANGE_ACTIVE_HAND = 1500;
 const DELAY_NEXT_GAME = 2000;
 
+/**
+ * The purpose of using this hook rather than automatically transitioning between
+ * states in the reducer is so that we can have finer control over the timing of
+ * UI states.
+ */
 const useBlackjackState = () => {
   const {
     gameState,
@@ -20,7 +25,6 @@ const useBlackjackState = () => {
     playerHands,
     hit,
     endHand,
-    activeHand,
     nextGame,
     nextHand,
   } = useGameContext();

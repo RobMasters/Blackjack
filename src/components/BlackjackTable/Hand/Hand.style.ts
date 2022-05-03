@@ -18,6 +18,14 @@ export const Cards = styled.div`
   }
 `;
 
+export const Bet = styled.div`
+  color: #b6c2ba;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'Lucida Grande';
+  line-height: 2rem;
+`;
+
 export const Result = styled(Card)<{ $result: HandResult }>`
   margin-left: 0 !important;
   position: absolute;

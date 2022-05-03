@@ -31,6 +31,10 @@ const BlackjackTable: React.FC = () => {
   return (
     <>
       <SC.GameTable>
+        <SC.Headings>
+          <div>Balance | ${balance}</div>
+          <div>Deck | {deck.length}</div>
+        </SC.Headings>
         <SC.HandWrapper direction="vertical" size="middle">
           {gameState === 'bet' && !balance && (
             <SC.NoBalance>No more money 😭💸</SC.NoBalance>
@@ -55,8 +59,6 @@ const BlackjackTable: React.FC = () => {
           )}
         </SC.HandWrapper>
       </SC.GameTable>
-      <p>Deck: {deck.length}</p>
-      <p>Balance: ${balance}</p>
     </>
   );
 };
