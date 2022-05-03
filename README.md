@@ -2,6 +2,20 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Installation
+
+```bash
+$ git clone git@github.com:RobMasters/Blackjack.git
+$ cd Blackjack
+$ yarn install
+
+~~ wait ~~
+
+$ yarn start 
+```
+
+After these commands, the game should be running locally at http://localhost:3000/
+
 ## What has been implemented
 
 * Core actions:
